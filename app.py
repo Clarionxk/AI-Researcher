@@ -20,7 +20,7 @@ st.set_page_config(page_title="AI Infographic Generator", layout="wide")
 # Custom CSS
 st.markdown("""
 <style>
-    .stApp { background-color: #f0f2f6; }
+    
     .info-box {
         background-color: black;
         padding: 20px;
@@ -131,7 +131,7 @@ def run_crew_research(topic, api_key):
     # 1. Define LLM using proper provider prefix 'gemini/'
     gemini_llm = LLM(
         model="gemini/gemini-2.5-flash",
-        temperature=0.1,
+        temperature=0.5,
         api_key=api_key
     )
 
@@ -158,12 +158,12 @@ def run_crew_research(topic, api_key):
     research_task = Task(
         description=f"""
         Research '{topic}'. Find:
-        1. Executive summary (max 50 words).
+        1. Executive summary (max 150 words).
         2. 3 numerical stats (e.g., "Market Cap: $1T").
         3. One fun fact.
         """,
         agent=researcher,
-        expected_output="Text report with summary, stats, and fact."
+        expected_output="Text report with extensive report and summary, stats, and fact."
     )
 
     design_task = Task(
