@@ -22,7 +22,7 @@ st.markdown("""
 <style>
     .stApp { background-color: #f0f2f6; }
     .info-box {
-        background-color: white;
+        background-color: black;
         padding: 20px;
         border-radius: 10px;
         box-shadow: 0 4px 6px rgba(0,0,0,0.1);
@@ -116,7 +116,7 @@ def create_infographic_pdf(data, filename="infographic.pdf"):
     return filename
 
 # ==========================================
-# 3. CREWAI BACKEND (FIXED FOR LITELLM)
+# 3. CREWAI BACKEND (FIXED)
 # ==========================================
 
 def run_crew_research(topic, api_key):
@@ -140,7 +140,7 @@ def run_crew_research(topic, api_key):
         role='Senior Research Analyst',
         goal=f'Uncover key statistics and facts about: {topic}',
         backstory="Expert researcher finding precise numbers.",
-        llm=gemini_llm,  # Use the new LLM object
+        llm=gemini_llm,
         verbose=True,
         allow_delegation=False
     )
@@ -149,7 +149,7 @@ def run_crew_research(topic, api_key):
         role='Information Architect',
         goal='Structure the research into valid JSON',
         backstory="You format raw research into strict JSON for app consumption.",
-        llm=gemini_llm,  # Use the new LLM object
+        llm=gemini_llm,
         verbose=True,
         allow_delegation=False
     )
@@ -250,8 +250,10 @@ def main():
                         )
 
                 except Exception as e:
+                    # Error handling fixed: removed reference to 'crew_output' 
+                    # because it doesn't exist if the crew failed.
                     st.error(f"Error: {str(e)}")
-                    st.code(crew_output)
+                    st.warning("If you get a 404 error, check your API Key permissions or try using model='gemini/gemini-1.5-flash-latest' in app.py")
 
 if __name__ == "__main__":
     main()
