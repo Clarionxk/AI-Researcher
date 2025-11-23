@@ -130,8 +130,8 @@ def run_crew_research(topic, api_key):
 
     # 1. Define LLM using proper provider prefix 'gemini/'
     gemini_llm = LLM(
-        model="gemini/gemini-1.5-flash-latest",
-        temperature=0.5,
+        model="gemini/gemini-2.5-flash",
+        temperature=0.1,
         api_key=api_key
     )
 
